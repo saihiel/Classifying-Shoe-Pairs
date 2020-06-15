@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Classifying Shoe Pairs</title>
+        <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Saihiel Bakshi">
+    <meta name="author" content="Saihiel Bakshi">
+    <meta name="theme-color" content="#78909c">
+    <!--<link rel="shortcut icon" href="favicon.ico"> -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../static/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../static/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon-16x16.png">
+    <link rel="manifest" href="../static/site.webmanifest">
+
+    <link href='https://fonts.googleapis.com/css?family=Lato:300,400,300italic,400italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    <!-- FontAwesome JS -->
+    <script defer src="../static/assets/fontawesome/js/all.js"></script>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../static/assets/plugins/bootstrap/css/bootstrap.min.css">
+
+{#    <!-- github calendar css -->#}
+{#    <link rel="stylesheet" href="assets/plugins/github-calendar/dist/github-calendar.css">#}
+{#    <!-- github activity css -->#}
+{#    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/octicons/2.0.2/octicons.min.css">#}
+{#    <link rel="stylesheet" href="assets/plugins/github-activity/github-activity-0.1.5.min.css">#}
+
+    <!-- Theme CSS -->
+    <link id="theme-style" rel="stylesheet" href="../static/assets/css/styles.css">
+    <link id="theme-style-dark" rel="stylesheet" href="../static/assets/css/dark-mode.css">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-167798419-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167798419-1');
+</script>
+    <style>
+#container {
+	margin: 0px auto;
+	width: 224px;
+	height: 224px;
+	border: 10px #333 solid;
+    display: block;
+}
+#videoElement {
+	width: 224px;
+	height: 224px;
+	background-color: #666;
+    {#transform: rotateY(180deg);#}
+    {#-webkit-transform: rotateY(180deg); /* Safari and Chrome */#}
+    {#-moz-transform: rotateY(180deg); /* Firefox */#}
+}
+#canvas {
+  display: flex;
+  justify-content: center;
+}
+.left {flex-shrink: 0; }
+.center {flex-shrink: 0; }
+.right {flex-shrink: 0; }
+#myExample {
+    display: none;
+}
+#recorder{
+    text-align: center;
+}
+#camera-container {
+    text-align: center;
+}
+#camera {
+    display: inline-block;
+}
+</style>
+</head>
+<body>
+    <div class="container sections-wrapper">
+        <div class="row">
+            <div class="primary col-lg-16 col-12">
+                <section class="about section">
+                    <div class="section-inner shadow-sm rounded">
+    <h2 style="text-align:center">Classifying Shoe Pairs for the Visually Impaired</h2>
+                        <p></p>
+                        <a class="btn btn-cta-primary float-right" href="https://saihielbakshi.com"><i class="fas fa-home"></i>Return to Home</a>
+  <h7><b>Take a picture of two of shoes and find out whether or not they come from the same pair.</b></h7>
+    <p></p>
+  <p><b>NOTE:</b> Please ensure the front of the shoe points to the bottom left of the image. Ensure your background is clear and consistent between images. </p>
+    <p>This model achieves an approximate accuracy of 85% for men's shoes and 75% for women's shoes.</p>
+    <p>Try various different pairs for the best results!</p>
+  <div id="recorder">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <button type="button" class="btn btn-secondary" id="shoe1"><i class="fas fa-camera"></i> Shoe 1</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-secondary" id="shoe2"><i class="fas fa-camera"></i> Shoe 2</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-secondary" id="classify"><i class="fas fa-check"></i> Classify</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-secondary" onclick="toggleMyHide()" id="example" value="show"><i class="fas fa-info-circle"></i> Show Example Picture</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <button type="button" class="btn btn-secondary" id="reset"><i class="fas fa-trash-alt"></i> Reset</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <br>
+      <div id="myExample"> <img id="exampleImage" src="../static/example.png"  alt="Example Image"/> </div>
+    <br>
+    <script type="text/javascript" src="{{ url_for('static', filename='capture.js') }}"></script>
+      <script>
+          function toggleMyHide() {
+              var x = document.getElementById("myExample");
+              if (x.style.display === "block") {
+                x.style.display = "none";
+              } else {
+                x.style.display = "block";
+              }
+              var y = document.getElementById("example");
+              if (y.value === "show") {
+                  y.value = "hide";
+                  y.innerHTML = "Hide Example Picture";
+               }
+                else{
+                    y.value = "show";
+                    y.innerHTML = "Show Example Picture";
+               }
+            }
+      </script>
+  </div>
+{#  <img id="video" src="{{ url_for('video_viewer') }}">#}
+  <div class="camera-container">
+      <div class="camera">
+{#      <br>#}
+          <div id="canvas">
+    <b>&nbsp;&nbsp;WebCam:&nbsp;&nbsp;</b>
+    <video id="video" class="left">Video stream not available.</video>
+{#    <button id="startbutton">Take photo</button>#}
+              <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shoe 1:&nbsp;&nbsp;</b>
+  <canvas id="canvas1" class="center"></canvas>
+    <b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Shoe 2:&nbsp;&nbsp;</b>
+  <canvas id="canvas2" class="right"></canvas>
+    <div>
+          </div>
+{#  <div class="output">#}
+{#    <img id="photo1" alt="Shoe 1 will appear in this box.">#}
+{#    <img id="photo2" alt="Shoe 2 will appear in this box.">#}
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+      <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+  </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
