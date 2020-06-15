@@ -7,6 +7,8 @@ This end-to-end project deals with preprocessing the image data, creating models
 
 Since the characteristics of mens and womens shoes are different, I evaluated my model's performance seperately on mens shoes and womens shoes.   
 
+[TRY IT NOW!](https://shoes-classifier-api.herokuapp.com/)
+
 Learning Curve for Model 1 |  Learning Curve for Model 2
 :-------------------------:|:-------------------------:
 ![](https://github.com/saihiel/Data-Portfolio/blob/master/images/Project2/model%201%20learning%20curve.png)  |  ![](https://github.com/saihiel/Data-Portfolio/blob/master/images/Project2/model%202%20learning%20curve.png)
