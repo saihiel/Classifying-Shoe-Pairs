@@ -24,7 +24,7 @@ numpy==1.16.5
 pbr==3.1.0
 peewee==2.8.1
 Pillow==6.2.2
-protobuf==2.6.1
+protobuf==3.18.3
 protobuf-to-dict==0.1.0
 PyMySQL==0.9.3
 pyparsing==2.4.2
